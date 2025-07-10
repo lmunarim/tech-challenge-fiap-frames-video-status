@@ -6,7 +6,7 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "aws_lambda_function" "dotnet8_consumer" {
-  depends_on    = [data.archive_file.lambda]
+  depends_on    = [data.archive_file.lambda_zip]
   function_name = "lambda-status"
   handler       = "LambdaStatus::LambdaStatus.Function::FunctionHandler"
   runtime       = "dotnet8"
