@@ -30,6 +30,8 @@ jobs:
         run: |
           dotnet restore src/Lambda/LambdaStatus.csproj
           dotnet publish src/Lambda/LambdaStatus.csproj -c Release -o publish
+          cd publish
+          zip -r ../lambda.zip .
 
       - name: Initialize Terraform
         run: terraform init
