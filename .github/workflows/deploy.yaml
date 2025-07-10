@@ -25,6 +25,11 @@ jobs:
         
       - name: Verificar estrutura do repositório
         run: ls -R
+      
+      - name: Build Lambda
+        run: |
+          dotnet restore src/Lambda/LambdaStatus/LambdaStatus.csproj
+          dotnet publish src/Lambda/LambdaStatus/LambdaStatus.csproj -c Release -o publish
 
       - name: Initialize Terraform
         run: terraform init
