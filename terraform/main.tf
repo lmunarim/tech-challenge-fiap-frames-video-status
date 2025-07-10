@@ -1,7 +1,7 @@
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "${path.module}/publish"
-  output_path = "${path.module}/publish/lambda.zip"
+  source_dir  = "${path.module}/"
+  output_path = "${path.module}/lambda.zip"
 }
 
 resource "aws_lambda_function" "dotnet8_consumer" {
