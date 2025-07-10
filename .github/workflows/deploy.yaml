@@ -26,10 +26,10 @@ jobs:
       - name: Verificar estrutura do repositório
         run: ls -R
 
-      - name: Instalar .NET 8
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
+      # - name: Instalar .NET 8
+      #   uses: actions/setup-dotnet@v3
+      #   with:
+      #     dotnet-version: '8.0.x'
 
       - name: Initialize Terraform
         run: terraform init
@@ -50,20 +50,20 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       
-      # - name: AWS CLI
-      #   run: dotnet tool install -g Amazon.Lambda.Tools
+      - name: AWS CLI
+        run: dotnet tool install -g Amazon.Lambda.Tools
 
-      # - name: Restore dependencies
-      #   run: dotnet restore lambdaValidarUsuario.sln
+      - name: Restore dependenciese
+        run: dotnet restore tech-challenge-fiap-frames-video-status.sln
 
-      # - name: Restore project
-      #   run: dotnet restore "./lambdaValidarUsuario/lambdaValidarUsuario.csproj" -t:rebuild 
+      - name: Restore project
+        run: dotnet restore "./src/Lambda/LambdaStatus.csproj" -t:rebuild 
 
-      # - name: Build Projeto
-      #   run: dotnet publish "./lambdaValidarUsuario/lambdaValidarUsuario.csproj" -c Release -o "/home/runner/work/_temp"
+      - name: Build Projeto
+        run: dotnet publish "./src/Lambda/LambdaStatus.csproj" -c Release -o "/home/runner/work/_temp/publish"
 
-      # - name: Deploy to Lambda
-      #   run: dotnet lambda deploy-serverless
+      - name: Deploy to Lambda
+        run: dotnet lambda deploy-serverless
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
