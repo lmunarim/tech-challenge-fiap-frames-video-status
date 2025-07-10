@@ -20,7 +20,7 @@ resource "aws_lambda_function" "dotnet8_consumer" {
 resource "aws_sqs_queue" "sqs-notifications" {
   name                      = "tech-challenge-fiap-upload-notifications"
   visibility_timeout_seconds = 30
-  message_retention_seconds = 345600
+  message_retention_seconds = 86400
 }
 
 resource "aws_iam_role" "lambda_exec_role" {
