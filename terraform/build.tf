@@ -1,11 +1,9 @@
 resource "null_resource" "build_dotnet_lambda" {
   provisioner "local-exec" {
-    interpreter = ["/bin/sh", "-c"]
-
+    interpreter = ["/bin/bash", "-c"]
     command = <<-EOT
-      dotnet restore "/src/Lambda/LambdaStatus/LambdaStatus.csproj"
-      dotnet publish "/src/Lambda/LambdaStatus/LambdaStatus.csproj" -c Release -o "/home/runner/work/_temp/publish"
+      dotnet restore "${path.module}/src/Lambda/LambdaStatus/LambdaStatus.csproj"
+      dotnet publish "${path.module}/src/Lambda/LambdaStatus/LambdaStatus.csproj" -c Release -o "/home/runner/work/_temp/publish"
     EOT
   }
 }
-
