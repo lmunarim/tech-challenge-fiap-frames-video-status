@@ -30,8 +30,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\fiap.Application\fiap.Application.csproj" />
-    <ProjectReference Include="..\..\Core\fiap.Domain\fiap.Domain.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Data\fiap.Repositories\fiap.Repositories.csproj" />
+    <ProjectReference Include="..\Core\fiap.Application\fiap.Application.csproj" />
+    <ProjectReference Include="..\Core\fiap.Domain\fiap.Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\Data\fiap.Repositories\fiap.Repositories.csproj" />
   </ItemGroup>
 </Project>
