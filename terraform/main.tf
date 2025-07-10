@@ -10,8 +10,8 @@ resource "aws_lambda_function" "dotnet8_consumer" {
   handler       = "LambdaStatus::LambdaStatus.Function::FunctionHandler"
   runtime       = "dotnet8"
   role          = aws_iam_role.lambda_exec_role.arn
-  filename         = "${path.module}/publish/lambda.zip"
-  source_code_hash = filebase64sha256("${path.module}/publish/lambda.zip")
+  filename         = "${path.module}/lambda.zip"
+  source_code_hash = filebase64sha256("${path.module}/lambda.zip")
   # filename         = data.archive_file.lambda_zip.output_path
   # source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 }
