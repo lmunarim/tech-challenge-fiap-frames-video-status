@@ -34,7 +34,7 @@ jobs:
           zip -r ../lambda.zip .
       
       - name: Move Lambda package to Terraform directory
-        run: mv publish/lambda.zip terraform/
+        run: mv lambda.zip terraform/
 
       - name: Initialize Terraform
         run: terraform init
