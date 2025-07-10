@@ -1,7 +1,7 @@
-data "archive_file" "lambda" {
+data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "/home/runner/work/_temp/publish/"
-  output_path = "lambda.zip"
+  source_dir  = "${path.module}/publish"
+  output_path = "${path.module}/lambda.zip"
   #depends_on  = [null_resource.build_dotnet_lambda]
 }
 
@@ -11,8 +11,8 @@ resource "aws_lambda_function" "dotnet8_consumer" {
   handler       = "LambdaStatus::LambdaStatus.Function::FunctionHandler"
   runtime       = "dotnet8"
   role          = aws_iam_role.lambda_exec_role.arn
-  filename         = "${path.module}/publish/lambda.zip"
-  source_code_hash = filebase64sha256("${path.module}/publish/lambda.zip")
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
   #source_code_hash = data.archive_file.lambda.output_base64sha256 # ?
   #source_code_hash = filebase64sha256("publish/lambda.zip")
   #filename      = "lambda.zip" # Path to your zipped .NET 8 Lambda
