@@ -30,9 +30,12 @@ jobs:
         run: |
           dotnet restore src/Lambda/LambdaStatus.csproj
           dotnet publish src/Lambda/LambdaStatus.csproj -c Release -o terraform/publish
-          cd terraform/publish
+          cd publish
           zip -r ../lambda.zip .
       
+      - name: Verificar estrutura do repositório
+        run: ls -R
+
       - name: Move Lambda package to Terraform directory
         run: mv lambda.zip terraform/
 
