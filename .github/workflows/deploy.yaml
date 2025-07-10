@@ -26,6 +26,11 @@ jobs:
       - name: Verificar estrutura do repositório
         run: ls -R
 
+      - name: Instalar .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
       - name: Initialize Terraform
         run: terraform init
         working-directory: terraform
