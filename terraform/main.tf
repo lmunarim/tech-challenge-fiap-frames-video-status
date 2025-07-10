@@ -23,8 +23,12 @@ resource "aws_sqs_queue" "sqs-notifications" {
   message_retention_seconds = 86400
 }
 
-resource "aws_iam_role" "lambda_exec_role" {
+data "aws_iam_role" "lambda_exec_role_unique" {
   name = "lambda-status-role"
+}
+
+resource "aws_iam_role" "lambda_exec_role" {
+  name = aws_iam_role.lambda_exec_role_unique.name
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
