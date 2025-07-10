@@ -1,0 +1,88 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "terraform", "terraform", "{29CA49A7-E513-4ED3-BD53-FB121905EF9C}"
+	ProjectSection(SolutionItems) = preProject
+		terraform\build.tf = terraform\build.tf
+		terraform\main.tf = terraform\main.tf
+		terraform\provider.tf = terraform\provider.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{DFD826FA-F9E7-4D83-A1EB-64523B6D82F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{30749EC8-FB7B-4EC2-8A55-40B216A8FF43}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\deploy.yaml = .github\workflows\deploy.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{F44DB5D6-D841-4F4D-A9EB-BE82FD85FCC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3173A6B3-DB15-440D-B592-2B02C77C6F76}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fiap.Application", "src\Core\fiap.Application\fiap.Application.csproj", "{3A9769AF-251B-462F-A0E1-BE4A9ACD767E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fiap.Domain", "src\Core\fiap.Domain\fiap.Domain.csproj", "{2ADA2197-1606-453D-802F-3DDDFC3C6E95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructure", "Infraestructure", "{92D475A0-4D21-448D-999D-437CAF10421E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E38CF1E9-9FB3-42B0-85BD-96D81C556D60}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fiap.Repositories", "src\Infrastructure\Data\fiap.Repositories\fiap.Repositories.csproj", "{C1D76F6A-0497-48BC-90BC-734E4DD1B078}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lambda", "Lambda", "{777DDE0B-AA8F-42B8-B146-D5314CAA6A60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{89C805D5-8962-4252-9D7B-29A15D1C43D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fiap.Tests", "src\Tests\fiap.Tests\fiap.Tests.csproj", "{0C75934B-9D2C-44BD-8F91-1EC79421C84D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LambdaStatus", "src\Lambda\LambdaStatus\LambdaStatus.csproj", "{8AC4F13C-3AE6-4FA4-AFB8-15B7D17E4CFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{65338BBA-F66F-4C4B-905B-85A79B060E7E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A9769AF-251B-462F-A0E1-BE4A9ACD767E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A9769AF-251B-462F-A0E1-BE4A9ACD767E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A9769AF-251B-462F-A0E1-BE4A9ACD767E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A9769AF-251B-462F-A0E1-BE4A9ACD767E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ADA2197-1606-453D-802F-3DDDFC3C6E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ADA2197-1606-453D-802F-3DDDFC3C6E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ADA2197-1606-453D-802F-3DDDFC3C6E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ADA2197-1606-453D-802F-3DDDFC3C6E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D76F6A-0497-48BC-90BC-734E4DD1B078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D76F6A-0497-48BC-90BC-734E4DD1B078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D76F6A-0497-48BC-90BC-734E4DD1B078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D76F6A-0497-48BC-90BC-734E4DD1B078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C75934B-9D2C-44BD-8F91-1EC79421C84D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C75934B-9D2C-44BD-8F91-1EC79421C84D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C75934B-9D2C-44BD-8F91-1EC79421C84D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C75934B-9D2C-44BD-8F91-1EC79421C84D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC4F13C-3AE6-4FA4-AFB8-15B7D17E4CFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC4F13C-3AE6-4FA4-AFB8-15B7D17E4CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC4F13C-3AE6-4FA4-AFB8-15B7D17E4CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC4F13C-3AE6-4FA4-AFB8-15B7D17E4CFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{30749EC8-FB7B-4EC2-8A55-40B216A8FF43} = {DFD826FA-F9E7-4D83-A1EB-64523B6D82F0}
+		{3A9769AF-251B-462F-A0E1-BE4A9ACD767E} = {3173A6B3-DB15-440D-B592-2B02C77C6F76}
+		{2ADA2197-1606-453D-802F-3DDDFC3C6E95} = {3173A6B3-DB15-440D-B592-2B02C77C6F76}
+		{E38CF1E9-9FB3-42B0-85BD-96D81C556D60} = {92D475A0-4D21-448D-999D-437CAF10421E}
+		{C1D76F6A-0497-48BC-90BC-734E4DD1B078} = {E38CF1E9-9FB3-42B0-85BD-96D81C556D60}
+		{0C75934B-9D2C-44BD-8F91-1EC79421C84D} = {89C805D5-8962-4252-9D7B-29A15D1C43D8}
+		{8AC4F13C-3AE6-4FA4-AFB8-15B7D17E4CFC} = {777DDE0B-AA8F-42B8-B146-D5314CAA6A60}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {054D77E5-C4C1-4E3A-96A1-928418C8D8B8}
+	EndGlobalSection
+EndGlobal
