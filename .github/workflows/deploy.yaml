@@ -32,6 +32,9 @@ jobs:
           dotnet publish src/Lambda/LambdaStatus.csproj -c Release -o publish
           cd publish
           zip -r ../lambda.zip .
+      
+      - name: Move Lambda package to Terraform directory
+        run: mv publish/lambda.zip terraform/
 
       - name: Initialize Terraform
         run: terraform init
