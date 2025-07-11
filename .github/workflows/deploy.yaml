@@ -64,7 +64,7 @@ jobs:
         run: |
           dotnet tool install --global dotnet-sonarscanner
           dotnet sonarscanner begin /k:"leandro-munarim_projetos-dev-fiap" /o:"leandro-munarim" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.dotcover.reportsPaths=coverage.html 
-          dotnet build tech-challenge-fiap.sln --no-incremental
+          dotnet build tech-challenge-fiap-frames-video-status.sln --no-incremental
           dotnet test src/Tests/fiap.Tests/fiap.Tests.csproj --collect "Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"**/Microsoft.NET.Test.Sdk.Program.cs\"
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
      
