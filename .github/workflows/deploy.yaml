@@ -29,9 +29,11 @@ jobs:
       - name: Build Lambda
         run: |
           dotnet restore src/Lambda/LambdaStatus.csproj
-          dotnet publish src/Lambda/LambdaStatus.csproj -c Release -o terraform/publish /p:PublishTrimmed=true
+          dotnet publish src/Lambda/LambdaStatus.csproj -c Release -o terraform/publish
           cd publish
           zip -r ../lambda.zip .
+          ls -lh ../lambda.zip
+          unzip -l ../lambda.zip
       
       - name: Verificar estrutura do repositório
         run: ls -R
