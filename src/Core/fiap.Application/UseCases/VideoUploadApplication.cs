@@ -11,32 +11,30 @@ namespace fiap.Application.UseCases
 {
     public class VideoUploadApplication : IVideoUploadApplication
     {
-        private readonly ILambdaContext _logger;
         private readonly IVideoUploadRepository _videoUploadRepository;
-        public VideoUploadApplication(ILambdaContext logger, IVideoUploadRepository videoUploadRepository)
+        public VideoUploadApplication(IVideoUploadRepository videoUploadRepository)
         {
-            _logger = logger;
             _videoUploadRepository = videoUploadRepository;
         }
         public async Task<VideoUpload> Processar(VideoUpload video)
         {
             try
             {
-                _logger.Logger.LogInformation($"Verificando existencia de Upload: {video.Id}");
+                Console.WriteLine($"Verificando existencia de Upload: {video.Id}");
                 var up = await Obter(video.Id);
 
                 if (string.IsNullOrEmpty(up.Id))
                 {
-                    _logger.Logger.LogInformation($"Inserindo novo upload: {video.Id}");
+                    Console.WriteLine($"Inserindo novo upload: {video.Id}");
                     return await Inserir(video);
                 }
 
-                _logger.Logger.LogInformation($"Atualizando upload existente: { JsonSerializer.Serialize(video)}");
+                Console.WriteLine($"Atualizando upload existente: { JsonSerializer.Serialize(video)}");
                 return await Atualizar(video);
             }
             catch (Exception ex)
             {
-                _logger.Logger.LogError($"Erro ao processar video {video.Id}. Erro: {ex.Message}");
+                Console.WriteLine($"Erro ao processar video {video.Id}. Erro: {ex.Message}");
                 throw;
             }
         }
@@ -45,12 +43,12 @@ namespace fiap.Application.UseCases
         {
             try
             {
-                _logger.Logger.LogInformation("Buscando lista.");
+                Console.WriteLine("Buscando lista.");
                 return await _videoUploadRepository.Obter();
             }
             catch (Exception ex)
             {
-                _logger.Logger.LogError($"Erro ao obter. Erro: {ex.Message}");
+                Console.WriteLine($"Erro ao obter. Erro: {ex.Message}");
                 throw;
             }
         }
@@ -58,12 +56,12 @@ namespace fiap.Application.UseCases
         {
             try
             {
-                _logger.Logger.LogInformation($"Buscando lista de pedidos por Id {Id}");
+                Console.WriteLine($"Buscando lista de pedidos por Id {Id}");
                 return await _videoUploadRepository.Obter(Id);
             }
             catch (Exception ex)
             {
-                _logger.Logger.LogError($"Erro ao obter por Id {Id}. Erro: {ex.Message}");
+                Console.WriteLine($"Erro ao obter por Id {Id}. Erro: {ex.Message}");
                 throw;
             }
         }
@@ -71,12 +69,12 @@ namespace fiap.Application.UseCases
         {
             try
             {
-                _logger.Logger.LogInformation($"Inserindo novo Upload: {video.Id}");
+                Console.WriteLine($"Inserindo novo Upload: {video.Id}");
                 return await _videoUploadRepository.Inserir(video);
             }
             catch (Exception ex)
             {
-                _logger.Logger.LogError($"Erro ao inserir {video.NomeArquivoOrigem}. Erro: {ex.Message}");
+                Console.WriteLine($"Erro ao inserir {video.NomeArquivoOrigem}. Erro: {ex.Message}");
                 throw;
             }
         }
@@ -84,12 +82,12 @@ namespace fiap.Application.UseCases
         {
             try
             {
-                _logger.Logger.LogInformation($"Atualizando id: {video.Id}.");
+                Console.WriteLine($"Atualizando id: {video.Id}.");
                 return await _videoUploadRepository.Atualizar(video);
             }
             catch (Exception ex)
             {
-                _logger.Logger.LogError($"Erro ao atualizar id {video.Id}. Erro: {ex.Message}");
+                Console.WriteLine($"Erro ao atualizar id {video.Id}. Erro: {ex.Message}");
                 throw;
             }
         }

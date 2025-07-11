@@ -8,13 +8,11 @@ namespace fiap.Repositories
 {
     public class VideoUploadRepository : IVideoUploadRepository
     {
-        private readonly ILambdaContext _logger;
         private readonly IAmazonDynamoDB _amazonDynamoDb;
         private const string FIAP_VIDEO_UPLOAD_DYNAMODB = "fiap-video-upload";
 
-        public VideoUploadRepository(ILambdaContext logger, IAmazonDynamoDB amazonDynamoDb)
+        public VideoUploadRepository(IAmazonDynamoDB amazonDynamoDb)
         {
-            _logger = logger;
             _amazonDynamoDb = amazonDynamoDb;
         }
         public async Task<List<VideoUpload>> Obter()
@@ -46,13 +44,13 @@ namespace fiap.Repositories
                     });
                 }
 
-                _logger.Logger.LogInformation("Lista de uploads obtida com sucesso!");
+                Console.WriteLine("Lista de uploads obtida com sucesso!");
 
                 return await Task.FromResult(lst);
             }
             catch (Exception ex)
             {
-                _logger.Logger.LogError($"Erro ao obter uploads. Erro: {ex.Message}.");
+                Console.WriteLine($"Erro ao obter uploads. Erro: {ex.Message}.");
                 throw;
             }
         }
@@ -91,13 +89,13 @@ namespace fiap.Repositories
                     DataUpload = DateTime.Parse(item["DataUpload"].S)
                 };
 
-                _logger.Logger.LogInformation("Lista de uploads obtida com sucesso!");
+                Console.WriteLine("Lista de uploads obtida com sucesso!");
 
                 return videoUpload;
             }
             catch (Exception ex)
             {
-                _logger.Logger.LogError($"Erro ao obter uploads. Erro: {ex.Message}.");
+                Console.WriteLine($"Erro ao obter uploads. Erro: {ex.Message}.");
                 throw;
             }
         }
@@ -131,13 +129,13 @@ namespace fiap.Repositories
 
                 _amazonDynamoDb.PutItemAsync(queryRequest).Wait();
 
-                _logger.Logger.LogInformation($"Upload {videoUpload.Id} inserido com sucesso!");
+                Console.WriteLine($"Upload {videoUpload.Id} inserido com sucesso!");
                 return Task.FromResult(videoUpload);
 
             }
             catch (Exception ex)
             {
-                _logger.Logger.LogError($"Erro ao salvar {videoUpload.Id}. Erro: {ex.Message}.");
+                Console.WriteLine($"Erro ao salvar {videoUpload.Id}. Erro: {ex.Message}.");
                 throw;
             }
         }
@@ -161,14 +159,14 @@ namespace fiap.Repositories
                 };
 
                 _amazonDynamoDb.UpdateItemAsync(request).Wait();
-                
-                _logger.Logger.LogInformation($"Sucesso ao atualizar id: {videoUpload.Id}");
+
+                Console.WriteLine($"Sucesso ao atualizar id: {videoUpload.Id}");
 
                 return Task.FromResult(videoUpload);
             }
             catch (Exception ex)
             {
-                _logger.Logger.LogError($"Erro ao atualizar id: {videoUpload.Id}. Erro: {ex.Message}");
+                Console.WriteLine($"Erro ao atualizar id: {videoUpload.Id}. Erro: {ex.Message}");
                 throw;
             }
         }
