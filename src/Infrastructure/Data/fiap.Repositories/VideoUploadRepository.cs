@@ -70,7 +70,7 @@ namespace fiap.Repositories
                 var response = await _amazonDynamoDb.GetItemAsync(queryRequest);
 
                 if (response.Item == null || response.Item.Count == 0)
-                    throw new Exception($"Id {Id} não encontrado.");
+                    return new VideoUpload();
 
                 var item = response.Item;
 

@@ -34,11 +34,14 @@ namespace LambdaStatus
 
                 using var scope = _serviceProvider.CreateScope();
                 var videoUploadApplication = scope.ServiceProvider.GetRequiredService<IVideoUploadApplication>();
-
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
                 foreach (var record in evnt.Records)
                 {
                     context.Logger.LogInformation($"Processing message {record.MessageId} with body: {record.Body}");
-                    await videoUploadApplication.Processar(JsonSerializer.Deserialize<VideoUpload>(record.Body));
+                    await videoUploadApplication.Processar(JsonSerializer.Deserialize<VideoUpload>(record.Body, options));
                 }
 
                 return Task.CompletedTask;

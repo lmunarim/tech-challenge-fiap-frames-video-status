@@ -70,6 +70,7 @@ namespace fiap.Application.UseCases
             try
             {
                 Console.WriteLine($"Inserindo novo Upload: {video.Id}");
+                video.DataUpload = DateTime.UtcNow;
                 return await _videoUploadRepository.Inserir(video);
             }
             catch (Exception ex)

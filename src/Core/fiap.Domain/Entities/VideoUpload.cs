@@ -13,6 +13,7 @@ namespace fiap.Domain.Entities
         public string NomeArquivoGerado { get; set; }
         public string UrlS3 { get; set; }
         public Usuario Usuario { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public StatusUpload StatusUpload { get; set; }
         [JsonIgnore]
         public DateTime DataUpload { get; set; }
