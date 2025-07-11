@@ -1,0 +1,118 @@
+﻿name: Deploy AWS Lambda Function
+
+on:
+  push:
+    branches:
+      - feature/*
+  # pull_request:
+  #   branches:
+  #     - main
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.0
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+        
+      - name: Restore .NET dependencies
+        run: dotnet restore src/Lambda/LambdaStatus.csproj
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+        
+      - name: Cache SonarCloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+        
+      - name: Install SonarCloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+      
+      - name: Test and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          dotnet sonarscanner begin /k:"leandro-munarim_projetos-dev-fiap" /o:"leandro-munarim" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.dotcover.reportsPaths=coverage.html 
+          dotnet build tech-challenge-fiap-frames-video-status.sln --no-incremental
+          dotnet test src/Tests/fiap.Tests/fiap.Tests.csproj --collect "Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"**/Microsoft.NET.Test.Sdk.Program.cs\"
+          dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+     
+      - name: Rodando testes unitários
+        run: dotnet test src/Tests/fiap.Tests/fiap.Tests.csproj /p:CollectCoverage=true /p:IncludeTestAssembly=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"**/Microsoft.NET.Test.Sdk.Program.cs\"
+
+      - name: Build and optimize Lambda package
+        run: |
+          # Build and publish the Lambda function
+          dotnet publish src/Lambda/LambdaStatus.csproj -c Release -r linux-x64 --self-contained false -o lambda-publish
+          
+          # Navigate to publish directory and optimize
+          cd lambda-publish
+          
+          # Remove unnecessary files to reduce package size
+          rm -f *.pdb *.xml
+          rm -rf runtimes/win* runtimes/osx* || true
+          
+          # Create optimized zip package
+          zip -r ../lambda-deployment.zip . -x "*.pdb" "*.xml"
+          
+          # Show package info
+          cd ..
+          ls -lh lambda-deployment.zip
+          echo "Package size: $(du -h lambda-deployment.zip | cut -f1)"
+          
+      - name: Verify package contents
+        run: |
+          echo "=== Lambda Package Contents ==="
+          unzip -l lambda-deployment.zip | head -20
+
+      - name: Initialize Terraform
+        run: terraform init
+        working-directory: terraform
+
+      - name: Terraform Plan
+        run: terraform plan -var="lambda_zip_path=../lambda-deployment.zip"
+        working-directory: terraform
+
+      - name: Terraform Apply
+        # Apply on main/develop branches and feature branches (for testing)
+        # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature/')
+        run: terraform apply -auto-approve -var="lambda_zip_path=../lambda-deployment.zip"
+        working-directory: terraform
+
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lambda-deployment-package
+          path: lambda-deployment.zip
+          retention-days: 7
