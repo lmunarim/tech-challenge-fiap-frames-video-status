@@ -11,13 +11,14 @@ using fiap.Repositories;
 using fiap.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
-
 namespace LambdaStatus
 {
+    [ExcludeFromCodeCoverage]
     public class Function
     {
         private readonly ServiceProvider _serviceProvider;

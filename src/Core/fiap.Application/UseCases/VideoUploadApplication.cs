@@ -26,12 +26,12 @@ namespace fiap.Application.UseCases
                     Console.WriteLine($"Video {video.Id} está com erro de processamento.");
 
                     await _emailApplication.SendEmailAsync(video);
-                    
+
 
                     return video;
                 }
 
-                    Console.WriteLine($"Verificando existencia de Upload: {video.Id}");
+                Console.WriteLine($"Verificando existencia de Upload: {video.Id}");
                 var up = await Obter(video.Id);
 
                 if (string.IsNullOrEmpty(up.Id))
@@ -40,7 +40,7 @@ namespace fiap.Application.UseCases
                     return await Inserir(video);
                 }
 
-                Console.WriteLine($"Atualizando upload existente: { JsonSerializer.Serialize(video)}");
+                Console.WriteLine($"Atualizando upload existente: {JsonSerializer.Serialize(video)}");
                 return await Atualizar(video);
             }
             catch (Exception ex)
