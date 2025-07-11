@@ -10,7 +10,8 @@ resource "aws_lambda_function" "dotnet8_consumer" {
   function_name    = "lambda-status-not"
   handler          = "LambdaStatus::LambdaStatus.Function::FunctionHandler"
   runtime          = "dotnet8"
-  role            = aws_iam_role.lambda_exec_role.arn
+  #role            = aws_iam_role.lambda_exec_role.arn
+  role             = "arn:aws:iam::147997141255:role/lambda-status-role"  
   filename        = var.lambda_zip_path
   source_code_hash = filebase64sha256(var.lambda_zip_path)
   timeout         = 30
