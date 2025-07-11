@@ -1,19 +1,20 @@
-data "archive_file" "lambda_zip" {
-  type        = "zip"
-  source_dir  = "${path.module}/"
-  output_path = "${path.module}/lambda.zip"
+
+# Variable for lambda zip path (provided by CI/CD)
+variable "lambda_zip_path" {
+  description = "Path to the Lambda deployment zip file"
+  type        = string
+  default     = "../lambda-deployment.zip"
 }
 
 resource "aws_lambda_function" "dotnet8_consumer" {
-  depends_on    = [data.archive_file.lambda_zip]
-  function_name = "lambda-status"
-  handler       = "LambdaStatus::LambdaStatus.Function::FunctionHandler"
-  runtime       = "dotnet8"
-  role          = aws_iam_role.lambda_exec_role.arn
-  filename         = "${path.module}/lambda.zip"
-  source_code_hash = filebase64sha256("${path.module}/lambda.zip")
-  # filename         = data.archive_file.lambda_zip.output_path
-  # source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  function_name    = "lambda-status"
+  handler          = "LambdaStatus::LambdaStatus.Function::FunctionHandler"
+  runtime          = "dotnet8"
+  role            = aws_iam_role.lambda_exec_role.arn
+  filename        = var.lambda_zip_path
+  source_code_hash = filebase64sha256(var.lambda_zip_path)
+  timeout         = 30
+  memory_size     = 512
 }
 
 

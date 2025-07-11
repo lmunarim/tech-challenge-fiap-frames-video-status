@@ -54,3 +54,19 @@ TestResult.xml
 nunit-*.xml
 
 *.vs/
+
+# Terraform files
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.tfplan
+*.tfvars
+
+# Lambda build artifacts
+lambda.zip
+lambda-deployment.zip
+publish/
+
+# Logs
+*.log
