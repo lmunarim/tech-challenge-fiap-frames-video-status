@@ -4,11 +4,7 @@ on:
   push:
     branches:
       - feature/*
-      - main
       - master
-  # pull_request:
-  #   branches:
-  #     - main
 
 env:
   AWS_REGION: us-east-1
