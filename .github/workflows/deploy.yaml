@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/*
+      - main
   # pull_request:
   #   branches:
   #     - main
@@ -58,7 +59,7 @@ jobs:
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
       
-      - name: Test and analyze
+      - name: Testes Unitários e Análise no Sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
@@ -68,9 +69,6 @@ jobs:
           dotnet test src/Tests/fiap.Tests/fiap.Tests.csproj --collect "Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"**/Microsoft.NET.Test.Sdk.Program.cs\"
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
      
-      - name: Rodando testes unitários
-        run: dotnet test src/Tests/fiap.Tests/fiap.Tests.csproj /p:CollectCoverage=true /p:IncludeTestAssembly=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"**/Microsoft.NET.Test.Sdk.Program.cs\"
-
       - name: Build and optimize Lambda package
         run: |
           # Build and publish the Lambda function
