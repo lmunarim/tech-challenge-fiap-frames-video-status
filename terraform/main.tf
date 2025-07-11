@@ -71,8 +71,8 @@ resource "aws_lambda_function" "dotnet8_consumer" {
 #   policy_arn = aws_iam_policy.lambda_sqs_policy.arn
 # }
 
-resource "aws_lambda_event_source_mapping" "sqs_trigger" {
-  event_source_arn = "arn:aws:sqs:us-east-1:147997141255:tech-challenge-fiap-upload-notifications"
-  function_name    = aws_lambda_function.dotnet8_consumer.arn
-  batch_size       = 10
-}
+# resource "aws_lambda_event_source_mapping" "sqs_trigger" {
+#   event_source_arn = "arn:aws:sqs:us-east-1:147997141255:tech-challenge-fiap-upload-notifications"
+#   function_name    = aws_lambda_function.dotnet8_consumer.arn
+#   batch_size       = 10
+# }

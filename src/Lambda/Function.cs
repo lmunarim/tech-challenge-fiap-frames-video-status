@@ -56,8 +56,8 @@ namespace LambdaStatus
             serviceCollection.AddLogging();
             serviceCollection.AddLogging(builder => builder.AddLambdaLogger());
             serviceCollection.AddAWSService<IAmazonDynamoDB>();
-            serviceCollection.AddScoped<IVideoUploadApplication, VideoUploadApplication>();
-            serviceCollection.AddScoped<IVideoUploadRepository, VideoUploadRepository>();
+            serviceCollection.AddTransient<IVideoUploadApplication, VideoUploadApplication>();
+            serviceCollection.AddTransient<IVideoUploadRepository, VideoUploadRepository>();
         }
    }
 
