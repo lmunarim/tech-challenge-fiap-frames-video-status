@@ -73,7 +73,8 @@ jobs:
         working-directory: terraform
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+        # Apply on main/develop branches and feature branches (for testing)
+        # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature/')
         run: terraform apply -auto-approve -var="lambda_zip_path=../lambda-deployment.zip"
         working-directory: terraform
 
