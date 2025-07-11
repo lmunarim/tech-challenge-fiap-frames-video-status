@@ -8,12 +8,12 @@ output "lambda_function_arn" {
   value       = aws_lambda_function.dotnet8_consumer.arn
 }
 
-output "sqs_queue_name" {
-  description = "Name of the SQS queue"
-  value       = aws_sqs_queue.sqs-notifications.name
-}
+# output "sqs_queue_name" {
+#   description = "Name of the SQS queue"
+#   value       = aws_sqs_queue.sqs-notifications.name
+# }
 
-output "sqs_queue_url" {
-  description = "URL of the SQS queue"
-  value       = aws_sqs_queue.sqs-notifications.url
-}
+# output "sqs_queue_url" {
+#   description = "URL of the SQS queue"
+#   value       = aws_sqs_queue.sqs-notifications.url
+# }

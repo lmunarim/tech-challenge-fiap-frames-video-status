@@ -18,11 +18,11 @@ resource "aws_lambda_function" "dotnet8_consumer" {
 }
 
 
-resource "aws_sqs_queue" "sqs-notifications" {
-  name                      = "tech-challenge-fiap-upload-notifications"
-  visibility_timeout_seconds = 30
-  message_retention_seconds = 86400
-}
+# resource "aws_sqs_queue" "sqs-notifications" {
+#   name                      = "tech-challenge-fiap-upload-notifications"
+#   visibility_timeout_seconds = 30
+#   message_retention_seconds = 86400
+# }
 
 resource "aws_iam_role" "lambda_exec_role" {
   name = "lambda-status-role"
@@ -50,7 +50,7 @@ resource "aws_iam_policy" "lambda_sqs_policy" {
           "sqs:DeleteMessage",
           "sqs:GetQueueAttributes"
         ],
-        Resource = aws_sqs_queue.sqs-notifications.arn
+        Resource = "*"
       },
       {
         Effect = "Allow",
@@ -71,7 +71,7 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attach" {
 }
 
 resource "aws_lambda_event_source_mapping" "sqs_trigger" {
-  event_source_arn = aws_sqs_queue.sqs-notifications.arn
+  event_source_arn = "arn:aws:sqs:us-east-1:147997141255:tech-challenge-fiap-upload-notifications"
   function_name    = aws_lambda_function.dotnet8_consumer.arn
   batch_size       = 10
 }
