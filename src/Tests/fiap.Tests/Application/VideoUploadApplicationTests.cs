@@ -23,7 +23,7 @@ namespace fiap.Tests.Application
             repoMock.Setup(r => r.Obter("123")).ReturnsAsync(new VideoUpload()); // Simula não encontrado
             repoMock.Setup(r => r.Inserir(video)).ReturnsAsync(video);
 
-            var app = new VideoUploadApplication(lambdaContextMock.Object, repoMock.Object);
+            var app = new VideoUploadApplication(repoMock.Object);
 
             // Act
             var result = await app.Processar(video);
@@ -50,7 +50,7 @@ namespace fiap.Tests.Application
 
             lambdaContextMock.SetupSequence(x=>x.Logger.LogInformation(It.IsAny<string>()));
 
-            var app = new VideoUploadApplication(lambdaContextMock.Object, repoMock.Object);
+            var app = new VideoUploadApplication(repoMock.Object);
 
             // Act
             var result = await app.Processar(video);

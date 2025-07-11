@@ -47,7 +47,7 @@ namespace fiap.Tests.Repositories
                 It.IsAny<CancellationToken>()
             )).ReturnsAsync(retorno);
 
-            var repo = new VideoUploadRepository(lambdaContextMock.Object, dynamoMock.Object);
+            var repo = new VideoUploadRepository(dynamoMock.Object);
 
             // Act
             var resultado = await repo.Obter();
