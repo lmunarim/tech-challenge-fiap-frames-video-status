@@ -45,6 +45,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LambdaStatus", "src\Lambda\LambdaStatus.csproj", "{58AD566B-B8A5-4FF6-9D9B-CF62F21354DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B4487F63-C453-48EA-93F1-107D86ED8C43}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fiap.Services", "src\Infrastructure\Services\fiap.Services\fiap.Services.csproj", "{C57E300D-A8D5-4DF5-A410-636465FA6C86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,10 @@ Global
 		{58AD566B-B8A5-4FF6-9D9B-CF62F21354DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58AD566B-B8A5-4FF6-9D9B-CF62F21354DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58AD566B-B8A5-4FF6-9D9B-CF62F21354DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C57E300D-A8D5-4DF5-A410-636465FA6C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C57E300D-A8D5-4DF5-A410-636465FA6C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C57E300D-A8D5-4DF5-A410-636465FA6C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C57E300D-A8D5-4DF5-A410-636465FA6C86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,8 @@ Global
 		{C1D76F6A-0497-48BC-90BC-734E4DD1B078} = {E38CF1E9-9FB3-42B0-85BD-96D81C556D60}
 		{0C75934B-9D2C-44BD-8F91-1EC79421C84D} = {89C805D5-8962-4252-9D7B-29A15D1C43D8}
 		{58AD566B-B8A5-4FF6-9D9B-CF62F21354DB} = {777DDE0B-AA8F-42B8-B146-D5314CAA6A60}
+		{B4487F63-C453-48EA-93F1-107D86ED8C43} = {92D475A0-4D21-448D-999D-437CAF10421E}
+		{C57E300D-A8D5-4DF5-A410-636465FA6C86} = {B4487F63-C453-48EA-93F1-107D86ED8C43}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {054D77E5-C4C1-4E3A-96A1-928418C8D8B8}

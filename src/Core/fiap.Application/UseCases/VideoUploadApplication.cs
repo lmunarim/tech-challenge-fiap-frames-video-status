@@ -1,5 +1,4 @@
-﻿using Amazon.Lambda.Core;
-using fiap.Application.Interfaces;
+﻿using fiap.Application.Interfaces;
 using fiap.Domain.Entities;
 using fiap.Domain.Interfaces;
 using System;
@@ -12,15 +11,27 @@ namespace fiap.Application.UseCases
     public class VideoUploadApplication : IVideoUploadApplication
     {
         private readonly IVideoUploadRepository _videoUploadRepository;
-        public VideoUploadApplication(IVideoUploadRepository videoUploadRepository)
+        private readonly IEmailApplication _emailApplication;
+        public VideoUploadApplication(IVideoUploadRepository videoUploadRepository, IEmailApplication emailApplication)
         {
             _videoUploadRepository = videoUploadRepository;
+            _emailApplication = emailApplication;
         }
         public async Task<VideoUpload> Processar(VideoUpload video)
         {
             try
             {
-                Console.WriteLine($"Verificando existencia de Upload: {video.Id}");
+                if (video.StatusUpload == StatusUpload.ErroProcessamento)
+                {
+                    Console.WriteLine($"Video {video.Id} está com erro de processamento.");
+
+                    await _emailApplication.SendEmailAsync(video);
+                    
+
+                    return video;
+                }
+
+                    Console.WriteLine($"Verificando existencia de Upload: {video.Id}");
                 var up = await Obter(video.Id);
 
                 if (string.IsNullOrEmpty(up.Id))

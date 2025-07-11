@@ -1,4 +1,5 @@
 ﻿using Amazon.Lambda.Core;
+using fiap.Application.Interfaces;
 using fiap.Application.UseCases;
 using fiap.Domain.Entities;
 using fiap.Domain.Interfaces;
@@ -17,13 +18,16 @@ namespace fiap.Tests.Application
             lambdaContextMock.SetupGet(l => l.Logger).Returns(Mock.Of<ILambdaLogger>());
 
             var repoMock = new Mock<IVideoUploadRepository>();
+            var emailMock = new Mock<IEmailApplication>();
 
             var video = new VideoUpload { Id = "123", NomeArquivoOrigem = "origem.mp4" };
 
             repoMock.Setup(r => r.Obter("123")).ReturnsAsync(new VideoUpload()); // Simula não encontrado
             repoMock.Setup(r => r.Inserir(video)).ReturnsAsync(video);
 
-            var app = new VideoUploadApplication(repoMock.Object);
+            emailMock.Setup(e => e.SendEmailAsync(video)).Returns(Task.CompletedTask);
+
+            var app = new VideoUploadApplication(repoMock.Object, emailMock.Object);
 
             // Act
             var result = await app.Processar(video);
@@ -42,7 +46,7 @@ namespace fiap.Tests.Application
             lambdaContextMock.SetupGet(l => l.Logger).Returns(Mock.Of<ILambdaLogger>());
 
             var repoMock = new Mock<IVideoUploadRepository>();
-
+            var emailMock = new Mock<IEmailApplication>();
             var video = new VideoUpload { Id = "456", NomeArquivoOrigem = "origem.mp4" };
 
             repoMock.Setup(r => r.Obter("456")).ReturnsAsync(video); // Simula encontrado
@@ -50,7 +54,9 @@ namespace fiap.Tests.Application
 
             lambdaContextMock.SetupSequence(x=>x.Logger.LogInformation(It.IsAny<string>()));
 
-            var app = new VideoUploadApplication(repoMock.Object);
+            emailMock.Setup(e => e.SendEmailAsync(video)).Returns(Task.CompletedTask);
+
+            var app = new VideoUploadApplication(repoMock.Object, emailMock.Object);
 
             // Act
             var result = await app.Processar(video);

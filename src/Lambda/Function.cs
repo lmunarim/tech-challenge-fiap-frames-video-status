@@ -1,11 +1,14 @@
+using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
+using Amazon.SecretsManager;
 using fiap.Application.Interfaces;
 using fiap.Application.UseCases;
 using fiap.Domain.Entities;
 using fiap.Domain.Interfaces;
 using fiap.Repositories;
+using fiap.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -60,6 +63,9 @@ namespace LambdaStatus
             serviceCollection.AddLogging(builder => builder.AddLambdaLogger());
             serviceCollection.AddAWSService<IAmazonDynamoDB>();
             serviceCollection.AddTransient<IVideoUploadApplication, VideoUploadApplication>();
+            serviceCollection.AddTransient<IEmailApplication, EmailApplication>();
+            serviceCollection.AddSingleton<IAmazonSecretsManager>(new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName("us-east-1")));
+            serviceCollection.AddSingleton<ISecretManagerService, SecretManagerService>();
             serviceCollection.AddTransient<IVideoUploadRepository, VideoUploadRepository>();
         }
    }
