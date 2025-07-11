@@ -7,7 +7,7 @@ variable "lambda_zip_path" {
 }
 
 resource "aws_lambda_function" "dotnet8_consumer" {
-  function_name    = "lambda-status"
+  function_name    = "lambda-status-not"
   handler          = "LambdaStatus::LambdaStatus.Function::FunctionHandler"
   runtime          = "dotnet8"
   role            = aws_iam_role.lambda_exec_role.arn
@@ -25,7 +25,7 @@ resource "aws_lambda_function" "dotnet8_consumer" {
 # }
 
 resource "aws_iam_role" "lambda_exec_role" {
-  name = "lambda-status-role"
+  name = "lambda-status-not-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
@@ -39,7 +39,7 @@ resource "aws_iam_role" "lambda_exec_role" {
 }
 
 resource "aws_iam_policy" "lambda_sqs_policy" {
-  name = "lambda-status-sqs-policy"
+  name = "lambda-status-not-sqs-policy"
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
