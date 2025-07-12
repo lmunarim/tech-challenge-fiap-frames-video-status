@@ -66,30 +66,30 @@ jobs:
           dotnet test src/Tests/fiap.Tests/fiap.Tests.csproj --collect "Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"**/Microsoft.NET.Test.Sdk.Program.cs\"
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
      
-      - name: Build and optimize Lambda package
-        run: |
-          # Build and publish the Lambda function
-          dotnet publish src/Lambda/LambdaStatus.csproj -c Release -r linux-x64 --self-contained false -o lambda-publish
+      # - name: Build and optimize Lambda package
+      #   run: |
+      #     # Build and publish the Lambda function
+      #     dotnet publish src/Lambda/LambdaStatus.csproj -c Release -r linux-x64 --self-contained false -o lambda-publish
           
-          # Navigate to publish directory and optimize
-          cd lambda-publish
+      #     # Navigate to publish directory and optimize
+      #     cd lambda-publish
           
-          # Remove unnecessary files to reduce package size
-          rm -f *.pdb *.xml
-          rm -rf runtimes/win* runtimes/osx* || true
+      #     # Remove unnecessary files to reduce package size
+      #     rm -f *.pdb *.xml
+      #     rm -rf runtimes/win* runtimes/osx* || true
           
-          # Create optimized zip package
-          zip -r ../lambda-deployment.zip . -x "*.pdb" "*.xml"
+      #     # Create optimized zip package
+      #     zip -r ../lambda-deployment.zip . -x "*.pdb" "*.xml"
           
-          # Show package info
-          cd ..
-          ls -lh lambda-deployment.zip
-          echo "Package size: $(du -h lambda-deployment.zip | cut -f1)"
+      #     # Show package info
+      #     cd ..
+      #     ls -lh lambda-deployment.zip
+      #     echo "Package size: $(du -h lambda-deployment.zip | cut -f1)"
           
-      - name: Verify package contents
-        run: |
-          echo "=== Lambda Package Contents ==="
-          unzip -l lambda-deployment.zip | head -20
+      # - name: Verify package contents
+      #   run: |
+      #     echo "=== Lambda Package Contents ==="
+      #     unzip -l lambda-deployment.zip | head -20
 
       - name: Initialize Terraform
         run: terraform init
@@ -102,12 +102,12 @@ jobs:
       - name: Terraform Apply
         # Apply on main/develop branches and feature branches (for testing)
         # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feature/')
-        run: terraform apply -auto-approve -var="lambda_zip_path=../lambda-deployment.zip"
+        run: terraform destroy -auto-approve -var="lambda_zip_path=../lambda-deployment.zip"
         working-directory: terraform
 
-      - name: Upload deployment artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: lambda-deployment-package
-          path: lambda-deployment.zip
-          retention-days: 7
+      # - name: Upload deployment artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: lambda-deployment-package
+      #     path: lambda-deployment.zip
+      #     retention-days: 7

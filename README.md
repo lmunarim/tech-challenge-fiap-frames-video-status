@@ -345,14 +345,11 @@ Tests/
 - Documentar métodos públicos
 - Seguir princípios SOLID
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
 ## 👥 Equipe
 
 Desenvolvido como parte do Tech Challenge da FIAP - Pós-graduação em Software Architecture.
 
-## 📞 Suporte
+## Recursos Adicionais
 
-Para dúvidas ou suporte, entre em contato através dos canais oficiais da FIAP ou abra uma issue neste repositório.
+- [Desenho Arquitetura](docs/Desenho%20Arquitetura.jpg)
+- [Demonstração em vídeo](https://youtu.be/Wy4g0rllg80)
