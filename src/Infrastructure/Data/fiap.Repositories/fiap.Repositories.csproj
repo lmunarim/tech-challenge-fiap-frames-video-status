@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.Core" Version="2.5.1" />
+    <PackageReference Include="AWSSDK.Core" Version="4.0.0.5" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.0.6" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.1" />
+    <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0.4" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="4.0.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\fiap.Domain\fiap.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
