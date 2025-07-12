@@ -32,7 +32,7 @@ namespace fiap.Application.UseCases
                 {
                     From = new MailAddress(secret.MailAdress),
                     Subject = "[Status Processamento Video] - FIAP FASE 5 - Notificação Upload Video",
-                    Body = $"FIAP FASE 5 - Notificação Upload Video \n Olá {video.Usuario.Nome}, segue o status do processamento do video \n Status de envio - {video.StatusUpload}",
+                    Body = $"FIAP FASE 5 - Notificação Upload Video \n Olá {video.Usuario.Nome}, segue o status do processamento do video {video.NomeArquivoOrigem} \n Status de envio - {video.StatusUpload}",
                     IsBodyHtml = false
                 };
 

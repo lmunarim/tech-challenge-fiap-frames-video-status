@@ -67,7 +67,7 @@ namespace fiap.Application.UseCases
         {
             try
             {
-                Console.WriteLine($"Buscando lista de pedidos por Id {Id}");
+                Console.WriteLine($"Buscando arquivo por Id {Id}");
                 return await _videoUploadRepository.Obter(Id);
             }
             catch (Exception ex)
