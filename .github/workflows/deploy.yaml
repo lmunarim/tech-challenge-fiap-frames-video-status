@@ -95,9 +95,9 @@ jobs:
         run: terraform init
         working-directory: terraform
 
-      - name: Terraform Plan
-        run: terraform plan -var="lambda_zip_path=../lambda-deployment.zip"
-        working-directory: terraform
+      # - name: Terraform Plan
+      #   run: terraform plan -var="lambda_zip_path=../lambda-deployment.zip"
+      #   working-directory: terraform
 
       - name: Terraform Apply
         # Apply on main/develop branches and feature branches (for testing)
